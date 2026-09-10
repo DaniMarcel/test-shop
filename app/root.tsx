@@ -9,9 +9,10 @@ import {
   Scripts,
   ScrollRestoration,
   useRouteLoaderData,
+  useLocation,
 } from 'react-router';
 import type {Route} from './+types/root';
-import favicon from '~/assets/favicon.svg';
+import favicon from '~/assets/lumbre-favicon.svg';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
@@ -145,7 +146,7 @@ export function Layout({children}: {children?: React.ReactNode}) {
   const nonce = useNonce();
 
   return (
-    <html lang="en">
+    <html lang="es">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -165,6 +166,9 @@ export function Layout({children}: {children?: React.ReactNode}) {
 
 export default function App() {
   const data = useRouteLoaderData<RootLoader>('root');
+  const {pathname} = useLocation();
+
+  if (pathname === '/') return <Outlet />;
 
   if (!data) {
     return <Outlet />;
